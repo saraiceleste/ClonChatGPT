@@ -37,7 +37,13 @@ export function ChatProvider({ children }) {
   );
 }
 
-// Custom hook para usar este contexto fácilmente
+// 5. Custom hook para consumir el contexto de forma segura
 export function useChat() {
-  return useContext(ChatContext);
+  const context = useContext(ChatContext);
+
+  if (context === undefined) {
+    throw new Error('useChat debe usarse dentro de un ChatProvider');
+  }
+
+  return context;
 }
